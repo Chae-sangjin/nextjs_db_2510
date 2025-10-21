@@ -2,6 +2,7 @@ package com.rest.pro.domain.member.service;
 
 import com.rest.pro.domain.member.entity.Member;
 import com.rest.pro.domain.member.repository.MemberRepository;
+import com.rest.pro.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final JwtProvider jwtProvider;
 
     public Member join(String username, String password, String email) {
         Member member = Member.builder()
@@ -20,5 +22,12 @@ public class MemberService {
         memberRepository.save(member);
 
         return member;
+    }
+
+    public void authAndMakeToken(String username, String password) {
+     Member member = memberRepository.findByUsername(username)
+             .orElseThrow(() -> new RuntimeException("사용자가 존재하지 않습니다."));
+
+     String accessToken = jwtProvider.genToken(member, 60 * 60 * 5);
     }
 }

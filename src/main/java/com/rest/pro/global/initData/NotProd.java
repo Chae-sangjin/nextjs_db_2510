@@ -20,8 +20,8 @@ public class NotProd {
 
             //회원 추가
             Member admin = memberService.join("admin", password, "admin@test.com");
-            Member user1 = memberService.join("admin", password, "admin1@test.com");
-            Member user2 = memberService.join("admin", password, "admin2@test.com");
+            Member user1 = memberService.join("user1", password, "admin1@test.com");
+            Member user2 = memberService.join("user2", password, "admin2@test.com");
 
             articleService.create(admin,"제목1", "내용1");
             articleService.create(user1,"제목2", "내용2");
