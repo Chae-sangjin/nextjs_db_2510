@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/members")
@@ -47,7 +44,7 @@ public class ApiV1memberController {
                 .httpOnly(true)
                 .build();
 
-        resp.addHeader("set-Cookie", cookie.toString());
+        resp.addHeader("Set-Cookie", cookie.toString());
 
         return RsData.of(
                 authAndMakeTokensRs.getResultCode(),
@@ -56,4 +53,8 @@ public class ApiV1memberController {
         );
     }
 
+    @GetMapping("/me")
+    public String me() {
+        return " 내 정보 ";
+    }
 }
